@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Url image:</strong>
+  <%= @product.url_image %>
+</p>
+
+<p>
+  <strong>Bar code:</strong>
+  <%= @product.bar_code %>
+</p>
+
+<p>
+  <strong>Flag:</strong>
+  <%= @product.flag %>
+</p>
+
+<p>
+  <strong>Suggested price:</strong>
+  <%= @product.suggested_price %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @product.category.name %>
+</p>
+
+<p>
+  <strong>Unity:</strong>
+  <%= @product.unity.unity %>
+</p>
+
+<%= link_to 'Edit', edit_api_v1_product_path(@product) %> |
+<%= link_to 'Back', api_v1_products_path %>

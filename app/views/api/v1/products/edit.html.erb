@@ -1,0 +1,6 @@
+<h1>Editing Product</h1>
+
+<%= render 'form', product: @product, type: "update" %>
+
+<%= link_to 'Show', api_v1_product_path(@product) %> |
+<%= link_to 'Back', api_v1_products_path %>
