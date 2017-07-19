@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @chance.name %>
+</p>
+
+<p>
+  <strong>Products:</strong>
+  <%= @chance.products %>
+</p>
+
+<%= link_to 'Edit', edit_chance_path(@chance) %> |
+<%= link_to 'Back', chances_path %>

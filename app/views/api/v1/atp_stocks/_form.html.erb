@@ -1,0 +1,32 @@
+<%= form_for(atp_stock) do |f| %>
+  <% if atp_stock.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(atp_stock.errors.count, "error") %> prohibited this atp_stock from being saved:</h2>
+
+      <ul>
+      <% atp_stock.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :min_stock %>
+    <%= f.number_field :min_stock %>
+  </div>
+
+  <div class="field">
+    <%= f.label :max_stock %>
+    <%= f.number_field :max_stock %>
+  </div>
+
+  <div class="field">
+    <%= f.label :product_id %>
+    <%= f.text_field :product_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  promotion_day: 2017-07-16 18:35:07
+
+two:
+  promotion_day: 2017-07-16 18:35:07

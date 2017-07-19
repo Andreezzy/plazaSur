@@ -4,7 +4,41 @@ class Api::V1::UnitiesController < ApplicationController
   # GET /unities
   # GET /unities.json
   def index
-    @unities = Unity.all
+    @totalReg = Unity.all.count
+
+    @limit = params.has_key?(:limit) ? params[:limit].to_i : 10
+    @page = params.has_key?(:page) ? params[:page].to_i : 1
+
+    @status = 200
+    @msg = "ok"
+
+    @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+
+    @start = ((@page-1) * @limit) +1
+    
+
+    @sortDirection = params.has_key?(:sortDirection) && params[:sortDirection] == 'ascending' ? 'ASC' : 'DESC'
+    @sortBy = params.has_key?(:sortBy) ? params[:sortBy] : 'unity'
+    @findBy = params.has_key?(:findBy) ? params[:findBy] : 'unity'
+
+
+    if !params.has_key?(:limit) && !params.has_key?(:page) && !params.has_key?(:findQuery)
+      @unities = Unity.first(@limit)
+      #raise @providers.size.to_yaml
+      @end = Unity.page(@page).last_page? ? @start + @unities.size - 1  : @start + @limit -1
+      return
+    end
+    
+    @unities = Unity.order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+
+    if params[:findBy] || params[:findQuery]
+      @unities = Unity.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      @totalReg = @unities.count
+      @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+      @start = ((@page-1) * @limit) +1
+      #raise @provider.to_yaml
+    end
+    @end = Unity.page(@page).last_page? ? @start + @unities.size - 1  : @start + @limit -1
   end
 
   # GET /unities/1

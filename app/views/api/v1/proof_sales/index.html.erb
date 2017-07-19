@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Proof Sales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sale</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Total price</th>
+      <th>User</th>
+      <th>Commentary</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @proof_sales.each do |proof_sale| %>
+      <tr>
+        <td><%= proof_sale.sale %></td>
+        <td><%= proof_sale.product %></td>
+        <td><%= proof_sale.quantity %></td>
+        <td><%= proof_sale.total_price %></td>
+        <td><%= proof_sale.user %></td>
+        <td><%= proof_sale.commentary %></td>
+        <td><%= link_to 'Show', proof_sale %></td>
+        <td><%= link_to 'Edit', edit_proof_sale_path(proof_sale) %></td>
+        <td><%= link_to 'Destroy', proof_sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Proof Sale', new_proof_sale_path %>

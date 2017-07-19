@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Min stock:</strong>
+  <%= @atp_stock.min_stock %>
+</p>
+
+<p>
+  <strong>Max stock:</strong>
+  <%= @atp_stock.max_stock %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @atp_stock.product %>
+</p>
+
+<%= link_to 'Edit', edit_atp_stock_path(@atp_stock) %> |
+<%= link_to 'Back', atp_stocks_path %>

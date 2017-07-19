@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @birthday.customer %>
+</p>
+
+<p>
+  <strong>Calentar:</strong>
+  <%= @birthday.calentar %>
+</p>
+
+<%= link_to 'Edit', edit_birthday_path(@birthday) %> |
+<%= link_to 'Back', birthdays_path %>

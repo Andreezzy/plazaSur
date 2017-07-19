@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Promotion Has Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Promotion</th>
+      <th>Product</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @promotion_has_products.each do |promotion_has_product| %>
+      <tr>
+        <td><%= promotion_has_product.promotion %></td>
+        <td><%= promotion_has_product.product %></td>
+        <td><%= link_to 'Show', promotion_has_product %></td>
+        <td><%= link_to 'Edit', edit_promotion_has_product_path(promotion_has_product) %></td>
+        <td><%= link_to 'Destroy', promotion_has_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Promotion Has Product', new_promotion_has_product_path %>

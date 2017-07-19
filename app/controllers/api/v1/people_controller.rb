@@ -1,10 +1,44 @@
-class PeopleController < ApplicationController
+class Api::V1::PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+    @totalReg = Person.all.count
+
+    @limit = params.has_key?(:limit) ? params[:limit].to_i : 10
+    @page = params.has_key?(:page) ? params[:page].to_i : 1
+
+    @status = 200
+    @msg = "ok"
+
+    @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+
+    @start = ((@page-1) * @limit) +1
+    
+
+    @sortDirection = params.has_key?(:sortDirection) && params[:sortDirection] == 'ascending' ? 'ASC' : 'DESC'
+    @sortBy = params.has_key?(:sortBy) ? params[:sortBy] : 'name'
+    @findBy = params.has_key?(:findBy) ? params[:findBy] : 'name'
+
+
+    if !params.has_key?(:limit) && !params.has_key?(:page) && !params.has_key?(:findQuery)
+      @people = Person.first(@limit)
+      #raise @providers.size.to_yaml
+      @end = Person.page(@page).last_page? ? @start + @people.size - 1  : @start + @limit -1
+      return
+    end
+    
+    @people = Person.order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+
+    if params[:findBy] || params[:findQuery]
+      @people = Person.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      @totalReg = @people.count
+      @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+      @start = ((@page-1) * @limit) +1
+      #raise @provider.to_yaml
+    end
+    @end = Person.page(@page).last_page? ? @start + @people.size - 1  : @start + @limit -1
   end
 
   # GET /people/1

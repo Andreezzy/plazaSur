@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  min_stock: 1
+  max_stock: 1
+  product: one
+
+two:
+  min_stock: 1
+  max_stock: 1
+  product: two

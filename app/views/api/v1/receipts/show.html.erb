@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Purchase date:</strong>
+  <%= @receipt.purchase_date %>
+</p>
+
+<p>
+  <strong>Purchase number:</strong>
+  <%= @receipt.purchase_number %>
+</p>
+
+<p>
+  <strong>Purchase total price:</strong>
+  <%= @receipt.purchase_total_price %>
+</p>
+
+<p>
+  <strong>Url image:</strong>
+  <%= @receipt.url_image %>
+</p>
+
+<p>
+  <strong>Voucher:</strong>
+  <%= @receipt.voucher %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @receipt.provider %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @receipt.user %>
+</p>
+
+<p>
+  <strong>Commentary:</strong>
+  <%= @receipt.commentary %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+<%= link_to 'Back', receipts_path %>

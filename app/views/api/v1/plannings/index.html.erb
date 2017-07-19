@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Plannings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Prodiver</th>
+      <th>Flag</th>
+      <th>Quantity</th>
+      <th>Planning date</th>
+      <th>Final date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @plannings.each do |planning| %>
+      <tr>
+        <td><%= planning.product %></td>
+        <td><%= planning.prodiver %></td>
+        <td><%= planning.flag %></td>
+        <td><%= planning.quantity %></td>
+        <td><%= planning.planning_date %></td>
+        <td><%= planning.final_date %></td>
+        <td><%= link_to 'Show', planning %></td>
+        <td><%= link_to 'Edit', edit_planning_path(planning) %></td>
+        <td><%= link_to 'Destroy', planning, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Planning', new_planning_path %>

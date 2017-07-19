@@ -10,7 +10,7 @@ class Api::V1::PackagesController < ApplicationController
     
     respond_to do |format|
       if @product.save
-        ActiveRecord::Base.connection.execute("call createPack(#{@product_supra.id},#{@product.id},#{@fraction})")
+        ActiveRecord::Base.connection.execute("call packaging(#{@product_supra.id},#{@product.id},#{@fraction})")
         format.html { redirect_to api_v1_product_path(params[:product_id]), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
@@ -22,7 +22,41 @@ class Api::V1::PackagesController < ApplicationController
   # GET /packages
   # GET /packages.json
   def index
-    @packages = Package.all
+    @totalReg = Package.all.count
+
+    @limit = params.has_key?(:limit) ? params[:limit].to_i : 10
+    @page = params.has_key?(:page) ? params[:page].to_i : 1
+
+    @status = 200
+    @msg = "ok"
+
+    @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+
+    @start = ((@page-1) * @limit) +1
+    
+
+    @sortDirection = params.has_key?(:sortDirection) && params[:sortDirection] == 'ascending' ? 'ASC' : 'DESC'
+    @sortBy = params.has_key?(:sortBy) ? params[:sortBy] : 'name'
+    @findBy = params.has_key?(:findBy) ? params[:findBy] : 'name'
+
+
+    if !params.has_key?(:limit) && !params.has_key?(:page) && !params.has_key?(:findQuery)
+      @packages = Package.first(@limit)
+      #raise @providers.size.to_yaml
+      @end = Package.page(@page).last_page? ? @start + @packages.size - 1  : @start + @limit -1
+      return
+    end
+    
+    @packages = Package.order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+
+    if params[:findBy] || params[:findQuery]
+      @packages = Package.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      @totalReg = @packages.count
+      @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+      @start = ((@page-1) * @limit) +1
+      #raise @provider.to_yaml
+    end
+    @end = Package.page(@page).last_page? ? @start + @packages.size - 1  : @start + @limit -1
   end
 
   # GET /packages/1

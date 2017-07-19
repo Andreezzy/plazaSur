@@ -1,0 +1,47 @@
+<%= form_for(planning) do |f| %>
+  <% if planning.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(planning.errors.count, "error") %> prohibited this planning from being saved:</h2>
+
+      <ul>
+      <% planning.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product_id %>
+    <%= f.text_field :product_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prodiver_id %>
+    <%= f.text_field :prodiver_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :flag %>
+    <%= f.check_box :flag %>
+  </div>
+
+  <div class="field">
+    <%= f.label :quantity %>
+    <%= f.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= f.label :planning_date %>
+    <%= f.datetime_select :planning_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :final_date %>
+    <%= f.datetime_select :final_date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

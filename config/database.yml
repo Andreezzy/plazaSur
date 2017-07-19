@@ -11,12 +11,12 @@ default: &default
   username: oso
   password: osoxd
   socket: /var/run/mysqld/mysqld.sock
-  host: 192.168.0.52
+  host: 192.168.0.18
   port: 3306
 
 development:
   <<: *default
-  database: testPlazaSur
+  database: testPlazaSur1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

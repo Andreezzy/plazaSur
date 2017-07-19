@@ -4,7 +4,41 @@ class Api::V1::CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @totalReg = Category.all.count
+
+    @limit = params.has_key?(:limit) ? params[:limit].to_i : 10
+    @page = params.has_key?(:page) ? params[:page].to_i : 1
+
+    @status = 200
+    @msg = "ok"
+
+    @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+
+    @start = ((@page-1) * @limit) +1
+    
+
+    @sortDirection = params.has_key?(:sortDirection) && params[:sortDirection] == 'ascending' ? 'ASC' : 'DESC'
+    @sortBy = params.has_key?(:sortBy) ? params[:sortBy] : 'name'
+    @findBy = params.has_key?(:findBy) ? params[:findBy] : 'name'
+
+
+    if !params.has_key?(:limit) && !params.has_key?(:page) && !params.has_key?(:findQuery)
+      @categories = Category.first(@limit)
+      #raise @providers.size.to_yaml
+      @end = Category.page(@page).last_page? ? @start + @categories.size - 1  : @start + @limit -1
+      return
+    end
+    
+    @categories = Category.order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+
+    if params[:findBy] || params[:findQuery]
+      @categories = Category.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      @totalReg = @categories.count
+      @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+      @start = ((@page-1) * @limit) +1
+      #raise @provider.to_yaml
+    end
+    @end = Category.page(@page).last_page? ? @start + @categories.size - 1  : @start + @limit -1
   end
 
   # GET /categories/1
@@ -25,6 +59,22 @@ class Api::V1::CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(category_params)
+
+
+    begin
+      Category.transaction do # un ActiveRecord
+        #@full_category.each do |f|
+          #Category.create(f)
+          #f.save!
+        #end
+        @category.save!
+      end
+      #Código de éxito
+    rescue => e
+      raise ActiveRecord::Rollback #Lanzamos el rollback de nuevo a saco
+      #Seguimos con las acciones que queramos, como notificar, etc.
+    end
+
 
     respond_to do |format|
       if @category.save

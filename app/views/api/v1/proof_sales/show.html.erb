@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sale:</strong>
+  <%= @proof_sale.sale %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @proof_sale.product %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @proof_sale.quantity %>
+</p>
+
+<p>
+  <strong>Total price:</strong>
+  <%= @proof_sale.total_price %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @proof_sale.user %>
+</p>
+
+<p>
+  <strong>Commentary:</strong>
+  <%= @proof_sale.commentary %>
+</p>
+
+<%= link_to 'Edit', edit_proof_sale_path(@proof_sale) %> |
+<%= link_to 'Back', proof_sales_path %>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  voucher: one
+  customer: one
+  total_price_purchase: MyString
+
+two:
+  voucher: two
+  customer: two
+  total_price_purchase: MyString

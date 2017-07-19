@@ -4,12 +4,49 @@ class Api::V1::ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.where(flag: 1)
+    @totalReg = Product.all.count
+
+    @limit = params.has_key?(:limit) ? params[:limit].to_i : 10
+    @page = params.has_key?(:page) ? params[:page].to_i : 1
+
+    @status = 200
+    @msg = "ok"
+
+    @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+
+    @start = ((@page-1) * @limit) +1
+    
+
+    @sortDirection = params.has_key?(:sortDirection) && params[:sortDirection] == 'ascending' ? 'ASC' : 'DESC'
+    @sortBy = params.has_key?(:sortBy) ? params[:sortBy] : 'name'
+    @findBy = params.has_key?(:findBy) ? params[:findBy] : 'name'
+
+
+    if !params.has_key?(:limit) && !params.has_key?(:page) && !params.has_key?(:findQuery)
+      @products = Product.first(@limit)
+      #raise @providers.size.to_yaml
+      @end = Product.page(@page).last_page? ? @start + @products.size - 1  : @start + @limit -1
+      return
+    end
+    
+    @products = Product.order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+
+    if params[:findBy] || params[:findQuery]
+      @products = Product.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      @totalReg = @products.count
+      @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
+      @start = ((@page-1) * @limit) +1
+      #raise @provider.to_yaml
+    end
+    @end = Product.page(@page).last_page? ? @start + @products.size - 1  : @start + @limit -1
+
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+    @category = @product.category
+    @unity = @product.unity
   end
 
   # GET /products/new

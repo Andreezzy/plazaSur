@@ -1,0 +1,2 @@
+module AtpImpostsHelper
+end
