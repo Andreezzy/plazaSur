@@ -65,10 +65,15 @@ class Api::V1::ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         format.html { redirect_to api_v1_product_path(@product), notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
+        
+        msg = { :status => 201, :message => "Producto creado", result: { id: @product.id } }
+        format.json  { render :json => msg }
       else
         format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+
+        msg = { status: :unprocessable_entity, :message => "Error al crear producto", errors: @product.errors }
+        format.json  { render :json => msg }
+
       end
     end
   end

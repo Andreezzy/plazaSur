@@ -1,7 +1,7 @@
 json.status @status
 json.msg @msg
 json.result do
-	json.products do
+	json.warehouses do
 		json.array! @warehouses, partial: 'api/v1/warehouses/warehouse', as: :warehouse
 	end
 	json.pagination do
