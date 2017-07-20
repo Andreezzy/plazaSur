@@ -66,7 +66,7 @@ class Api::V1::ProductsController < ApplicationController
       if @product.save
         format.html { redirect_to api_v1_product_path(@product), notice: 'Product was successfully created.' }
         
-        msg = { :status => 201, :message => "Producto creado", result: { id: @product.id } }
+        msg = { :status => 201, :message => "ok", result: { id: @product.id } }
         format.json  { render :json => msg }
       else
         format.html { render :new }
@@ -84,7 +84,12 @@ class Api::V1::ProductsController < ApplicationController
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to api_v1_product_path(@product), notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
+
+        msg = { :status => 200, :message => "ok", result: { id: @product.id } }
+        format.json  { render :json => msg }
+
+
+        #format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -95,10 +100,15 @@ class Api::V1::ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    @id = @product.id
     @product.destroy
     respond_to do |format|
       format.html { redirect_to api_v1_products_path, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
+
+      msg = { :status => 200, :message => "ok", result: { id: @id } }
+      format.json  { render :json => msg }
+
+      #format.json { head :no_content }
     end
   end
 

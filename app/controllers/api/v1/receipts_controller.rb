@@ -44,6 +44,8 @@ class Api::V1::ReceiptsController < ApplicationController
   # GET /receipts/1
   # GET /receipts/1.json
   def show
+    @products = []
+    @receipt.purchases.each { |x| @products << x }
   end
 
   # GET /receipts/new
