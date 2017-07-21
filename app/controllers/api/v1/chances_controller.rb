@@ -10,6 +10,11 @@ class Api::V1::ChancesController < ApplicationController
   # GET /chances/1
   # GET /chances/1.json
   def show
+    @products = ProductsHasChance.where(:chance_id => params[:id])
+    #@products.each do |x|
+      #p x.chance
+    #end
+    #raise @products.inspect.to_yaml
   end
 
   # GET /chances/new
@@ -69,6 +74,6 @@ class Api::V1::ChancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chance_params
-      params.require(:chance).permit(:name, :products_id)
+      params.require(:chance).permit(:name)
     end
 end

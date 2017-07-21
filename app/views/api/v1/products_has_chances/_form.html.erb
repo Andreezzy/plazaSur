@@ -1,0 +1,27 @@
+<%= form_for(products_has_chance) do |f| %>
+  <% if products_has_chance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(products_has_chance.errors.count, "error") %> prohibited this products_has_chance from being saved:</h2>
+
+      <ul>
+      <% products_has_chance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product_id %>
+    <%= f.text_field :product_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :chance_id %>
+    <%= f.text_field :chance_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

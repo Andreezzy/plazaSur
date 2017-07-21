@@ -32,7 +32,8 @@ class Api::V1::CustomersController < ApplicationController
     @customers = Customer.order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
 
     if params[:findBy] || params[:findQuery]
-      @customers = Customer.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      #@customers = Customer.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
+      @customers = Person.where("#{@findBy} like ?", "%#{params[:findQuery]}%").order("#{@sortBy} #{@sortDirection}").page(@page).per(@limit)
       @totalReg = @customers.count
       @totalPage = @totalReg / @limit + (@totalReg % @limit != 0 ? 1 : 0)
       @start = ((@page-1) * @limit) +1

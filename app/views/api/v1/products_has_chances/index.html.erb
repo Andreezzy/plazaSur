@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products Has Chances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Chance</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products_has_chances.each do |products_has_chance| %>
+      <tr>
+        <td><%= products_has_chance.product %></td>
+        <td><%= products_has_chance.chance %></td>
+        <td><%= link_to 'Show', products_has_chance %></td>
+        <td><%= link_to 'Edit', edit_products_has_chance_path(products_has_chance) %></td>
+        <td><%= link_to 'Destroy', products_has_chance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Products Has Chance', new_products_has_chance_path %>

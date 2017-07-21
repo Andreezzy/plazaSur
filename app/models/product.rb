@@ -8,4 +8,6 @@ class Product < ApplicationRecord
   has_one :warehouse
 
   has_one :planning
+  
+  has_many :products_has_chance
 end

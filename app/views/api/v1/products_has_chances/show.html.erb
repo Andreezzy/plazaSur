@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @products_has_chance.product %>
+</p>
+
+<p>
+  <strong>Chance:</strong>
+  <%= @products_has_chance.chance %>
+</p>
+
+<%= link_to 'Edit', edit_products_has_chance_path(@products_has_chance) %> |
+<%= link_to 'Back', products_has_chances_path %>

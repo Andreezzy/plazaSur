@@ -1,4 +1,4 @@
 class Chance < ApplicationRecord
 	self.table_name = "chance"
-  belongs_to :products
+    has_many :products_has_chance
 end

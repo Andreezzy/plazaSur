@@ -8,10 +8,10 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: oso
-  password: osoxd
+  username: lordcocoro
+  password: 
   socket: /var/run/mysqld/mysqld.sock
-  host: 192.168.0.18
+  host: 0.0.0.0
   port: 3306
 
 development:

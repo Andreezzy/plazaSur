@@ -36,6 +36,10 @@ Rails.application.routes.draw do
 
       resources :chances
       
+      
+      resources :products_has_chances
+      
+      
       post "/token", to: 'users#getToken'
       get "/decodedToken", to: 'users#decodedToken'
     end
